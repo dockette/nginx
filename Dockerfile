@@ -14,6 +14,7 @@ ADD ./mime.types /etc/nginx/
 
 # Default sites
 ADD ./sites/default /etc/nginx/sites-available/default
+RUN ln -s /etc/nginx/sites-available/default /etc/nginx/sites-enabled/default
 
 # Script for SSL cypther
 ADD ./generate-dhparam2048.sh /generate-dhparam2048.sh
