@@ -5,7 +5,7 @@ upstream website {
 server {
        listen 80;
        server_name $DOMAINS;
-       return 301 http://$host$request_uri;
+       return 301 https://$host$request_uri;
 }
 
 server {
