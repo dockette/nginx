@@ -12,7 +12,10 @@ RUN apt-get update && \
 ADD ./nginx.conf /etc/nginx/
 ADD ./mime.types /etc/nginx/
 
-# Default sites
+# Sites volumes
+VOLUME ["/etc/nginx/sites-available", "/etc/nginx/sites-enabled"]
+
+# Default site
 ADD ./sites/default /etc/nginx/sites-available/default
 RUN ln -s /etc/nginx/sites-available/default /etc/nginx/sites-enabled/default
 
@@ -23,8 +26,6 @@ RUN chmod 775 /generate-dhparam2048.sh
 # Startup script
 ADD ./start.sh /start.sh
 RUN chmod 775 /start.sh
-
-VOLUME ["/etc/nginx/sites-available", "/etc/nginx/sites-enabled"]
 
 EXPOSE 80 443
 
