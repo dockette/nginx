@@ -9,11 +9,10 @@ server {
 }
 
 server {
-    listen 443 ssl spdy;
+    listen 443 ssl htp2;
     server_name $DOMAINS;
 
     add_header Content-Security-Policy upgrade-insecure-requests;
-    add_header Alternate-Protocol 443:npn-spdy/3; # SPDY hlavicka
 
     # Nginx > 1.7.5
     #add_header Strict-Transport-Security 'max-age=31536000; includeSubDomains; preload' always;

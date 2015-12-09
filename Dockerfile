@@ -13,7 +13,7 @@ ADD ./nginx.conf /etc/nginx/
 ADD ./mime.types /etc/nginx/
 
 # Sites volumes
-VOLUME ["/etc/nginx/sites-available", "/etc/nginx/sites-enabled"]
+VOLUME ["/etc/nginx/conf.d", "/etc/nginx/sites-available", "/etc/nginx/sites-enabled"]
 
 # Default site
 ADD ./sites/default /etc/nginx/sites-available/default

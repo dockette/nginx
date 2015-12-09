@@ -3,7 +3,7 @@
 [![Docker Stars](https://img.shields.io/docker/stars/dockette/nginx.svg?style=flat)](https://hub.docker.com/r/dockette/nginx/)
 [![Docker Pulls](https://img.shields.io/docker/pulls/dockette/nginx.svg?style=flat)](https://hub.docker.com/r/dockette/nginx/)
 
-Nginx with SSL / SPDY / HSTS
+Nginx with SSL / HSTS and HTTP2 module. 
 
 ## Default
 
@@ -40,11 +40,10 @@ server {
 
 # HTTPS + SPDY + HTSTS (with all subdomains for 1 year)
 server {
-        listen 443 ssl spdy;
+        listen 443 ssl http2;
         server_name $DOMAINS;
 
         add_header Content-Security-Policy upgrade-insecure-requests;
-        add_header Alternate-Protocol 443:npn-spdy/3; # SPDY hlavicka
 
         # Nginx > 1.7.5
         add_header Strict-Transport-Security 'max-age=31536000; includeSubDomains; preload' always;
