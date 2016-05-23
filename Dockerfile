@@ -21,4 +21,6 @@ RUN chmod 775 /generate-dhparam2048.sh && chmod 775 /entrypoint.sh
 
 EXPOSE 80 443
 
+WORKDIR /srv
+
 CMD ["/entrypoint.sh"]
