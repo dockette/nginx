@@ -1,32 +1,24 @@
-FROM debian:jessie
+FROM dockette/debian:jessie
 
-# Install Nginx
-RUN apt-key adv --keyserver hkp://pgp.mit.edu:80 --recv-keys 573BFD6B3D8FBC641079A6ABABF5BD827BD9BF62
-RUN echo "deb http://nginx.org/packages/mainline/debian/ jessie nginx" >> /etc/apt/sources.list
+MAINTAINER Milan Sulc <sulcmil@gmail.com>
 
-RUN apt-get update && \
-    apt-get install -y ca-certificates nginx && \
-    rm -rf /var/lib/apt/lists/*
+RUN apt-key adv --keyserver hkp://pgp.mit.edu:80 --recv-keys 573BFD6B3D8FBC641079A6ABABF5BD827BD9BF62 && \
+    echo "deb http://nginx.org/packages/mainline/debian/ jessie nginx" >> /etc/apt/sources.list.d/nginx.list && \
+    apt-get update && apt-get install -y ca-certificates nginx && \
+    apt-get clean -y && apt-get autoclean -y && apt-get autoremove -y && \
+    rm -rf /var/lib/apt/lists/* /var/lib/log/* /tmp/* /var/tmp/*
 
 # Nginx configuration
 ADD ./nginx.conf /etc/nginx/
 ADD ./mime.types /etc/nginx/
+ADD ./sites/default /etc/nginx/sites-enabled/default
 
-# Sites volumes
-VOLUME ["/etc/nginx/conf.d", "/etc/nginx/sites-available", "/etc/nginx/sites-enabled"]
-
-# Default site
-ADD ./sites/default /etc/nginx/sites-available/default
-RUN ln -s /etc/nginx/sites-available/default /etc/nginx/sites-enabled/default
-
-# Script for SSL cypther
+# Scripts
 ADD ./generate-dhparam2048.sh /generate-dhparam2048.sh
-RUN chmod 775 /generate-dhparam2048.sh
+ADD ./start.sh /entrypoint.sh
 
-# Startup script
-ADD ./start.sh /start.sh
-RUN chmod 775 /start.sh
+RUN chmod 775 /generate-dhparam2048.sh && chmod 775 /entrypoint.sh
 
 EXPOSE 80 443
 
-CMD ["/start.sh"]
+CMD ["/entrypoint.sh"]
