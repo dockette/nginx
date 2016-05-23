@@ -15,7 +15,7 @@ ADD ./sites/default /etc/nginx/sites-enabled/default
 
 # Scripts
 ADD ./generate-dhparam2048.sh /generate-dhparam2048.sh
-ADD ./start.sh /entrypoint.sh
+ADD ./entrypoint.sh /entrypoint.sh
 
 RUN chmod 775 /generate-dhparam2048.sh && chmod 775 /entrypoint.sh
 
