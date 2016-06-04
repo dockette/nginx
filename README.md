@@ -21,7 +21,7 @@ docker run \
     dockette/nginx:latest
 ```
 
-Pass `dhparam2048.pem` is optional, if it is not provided container makes it by self (it takes lo-ooo-ng time).
+Pass `dhparam2048.pem` is optional, if it is not provided container use default one.
 
 ## Site configuration
 
