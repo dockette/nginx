@@ -46,4 +46,6 @@ server {
 
       try_files $uri =404;
     }
+
+    include /etc/nginx/site.conf.d/*.conf;
 }
