@@ -63,6 +63,8 @@ There are 2 sites predefined:
 
 The [default](https://github.com/dockette/nginx/blob/master/sites.d/default) returns http code 444 for every requests, it's marked as `default_server`.
 
+And the [example](https://github.com/dockette/nginx/blob/master/sites.d/example) site.
+
 ### Sites config
 
 For little fragments shared accross sites you can use folder `/etc/nginx/site.conf.d`.
