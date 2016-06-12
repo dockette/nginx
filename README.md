@@ -15,71 +15,68 @@ Without any volumes Nginx listen IPv4 and IPv6 on both ports 80/443 and serve 44
 docker run \
     -p 80:80 \ 
     -p 443:433 \
-    -v /home/nginx/sites:/etc/nginx/sites-enabled \
-    -v /home/nginx/dhparam2048.pem:/etc/nginx/dhparam2048.pem \
+    -v /path/to/site:/etc/nginx/sites.d/site \
     --name nginx \
     dockette/nginx:latest
 ```
 
-Pass `dhparam2048.pem` is optional, if it is not provided container use default one.
+## Configuration
 
-## Site configuration
+There are 2 main files:
 
-```nginx
-# PHP backend
-upstream website {
-    server php:9000;
-}
+- [nginx.conf](https://github.com/dockette/nginx/blob/master/nginx.conf)
+- [mime.types](https://github.com/dockette/nginx/blob/master/mime.types)
 
-# Redirect HTTP -> HTTPS
-server {
-       listen 80;
-       server_name $DOMAINS;
-       return 301 https://$host$request_uri;
-}
+Diffie-Hellman files:
 
-# HTTPS + SPDY + HTSTS (with all subdomains for 1 year)
-server {
-    listen 443 ssl http2;
-    server_name $DOMAINS;
+- [dhparam2048.pem](https://github.com/dockette/nginx/blob/master/dhparam2048.pem)
+- [dhparam4096](https://github.com/dockette/nginx/blob/master/dhparam4096.pem)
 
-    add_header Content-Security-Policy upgrade-insecure-requests;
-    add_header Strict-Transport-Security 'max-age=31536000; includeSubDomains; preload' always;
+Modules:
 
-    ssl_certificate /srv/certs/$DOMAIN/fullchain.pem;
-    ssl_certificate_key /srv/certs/$DOMAIN/privkey.pem;
-    ssl_session_timeout 5m;
+- nginx-module-xslt
+- nginx-module-geoip
+- nginx-module-image-filter
+- nginx-module-njs
 
-    charset utf-8;
+### Http config
 
-    index index.php index.html;
-    root /var/www;
+There are many files in `/etc/nginx/conf.d`.
 
-    location / {
-      try_files $uri $uri/ =404;
-    }
+- basic.conf
+- charset.conf
+- gzip.conf
+- logging.conf
+- ssl.conf
 
-    location ~* \.php$ {
-      fastcgi_split_path_info ^(.+?\.php)(/.*)$;
+These files are loaded manully in the main `http` section. You can extend only part of these files which you need.
 
-      fastcgi_pass   website;
-      fastcgi_index  index.php;
-      include        fastcgi_params;
+Please do not place your custom configurations to this folder. There is a folder `/etc/nginx/user.conf.d` for this reason.
 
-      fastcgi_param  PATH_INFO $fastcgi_path_info;
-      fastcgi_param  PATH_TRANSLATED $document_root$fastcgi_path_info;
-      fastcgi_param  SCRIPT_FILENAME $realpath_root$fastcgi_script_name;
-      fastcgi_param  DOCUMENT_ROOT $realpath_root;
+Take a look at [nginx.conf](https://github.com/dockette/nginx/blob/master/nginx.conf).
 
-      try_files $uri =404;
-    }
-} 
-```
+### Sites
 
-## Result
+Sites are loaded from folder `/etc/nginx/sites.d`.
+
+### Sites config
+
+For little fragments shared accross sites you can use folder `/etc/nginx/site.conf.d`.
+
+### User config
+
+Your custom global http section configuration, `/etc/nginx/user.conf.d`. These files are loaded automatic from `http` section.
+
+Take a look at [nginx.conf](https://github.com/dockette/nginx/blob/master/nginx.conf).
+
+### SSL
+
+By default, nginx use 2048 bits dhparam cypher. There is also 4096 bits pregenerated file. 
+
+This approach is for developing, for your stagging / production, please generate your own dhparam.
+
+## Tip
 
 You should have A+ on [SSL Server Test](https://www.ssllabs.com/ssltest/).
 
-![](https://raw.githubusercontent.com/dockette/nginx/master/docs/ssllabs.png "SSL Server Test")
-
-
+![](https://raw.githubusercontent.com/dockette/nginx/master/_docs/ssllabs.png "SSL Server Test")
