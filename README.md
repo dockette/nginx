@@ -43,11 +43,11 @@ Modules:
 
 There are many files in `/etc/nginx/conf.d`.
 
-- basic.conf
-- charset.conf
-- gzip.conf
-- logging.conf
-- ssl.conf
+- [basic.conf](https://github.com/dockette/nginx/blob/master/conf.d/basic.conf)
+- [charset.conf](https://github.com/dockette/nginx/blob/master/conf.d/charset.conf)
+- [gzip.conf](https://github.com/dockette/nginx/blob/master/conf.d/gzip.conf)
+- [logging.conf](https://github.com/dockette/nginx/blob/master/conf.d/logging.conf)
+- [ssl.conf](https://github.com/dockette/nginx/blob/master/conf.d/ssl.conf)
 
 These files are loaded manully in the main `http` section. You can extend only part of these files which you need.
 
@@ -59,9 +59,15 @@ Take a look at [nginx.conf](https://github.com/dockette/nginx/blob/master/nginx.
 
 Sites are loaded from folder `/etc/nginx/sites.d`.
 
+There are 2 sites predefined:
+
+The [default](https://github.com/dockette/nginx/blob/master/sites.d/default) returns http code 444 for every requests, it's marked as `default_server`.
+
 ### Sites config
 
 For little fragments shared accross sites you can use folder `/etc/nginx/site.conf.d`.
+
+
 
 ### User config
 
@@ -71,7 +77,7 @@ Take a look at [nginx.conf](https://github.com/dockette/nginx/blob/master/nginx.
 
 ### SSL
 
-By default, nginx use 2048 bits dhparam cypher. There is also 4096 bits pregenerated file. 
+By default nginx uses 2048 bits dhparam cypher. There is also 4096 bits pregenerated file. 
 
 This approach is for developing, for your stagging / production, please generate your own dhparam.
 

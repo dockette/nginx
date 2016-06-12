@@ -6,21 +6,23 @@ upstream website {
 # Example http server
 server {
    listen 80;
-   server_name site.dev;
+   server_name __SITE_NAME__;
+
+   # Redirect to https
    return 301 https://$host$request_uri;
 }
 
 # Example https server
 server {
     listen 443 ssl htp2;
-    server_name site.dev;
+    server_name __SITE_NAME__;
 
     add_header Content-Security-Policy upgrade-insecure-requests;
     add_header Strict-Transport-Security 'max-age=15552000; includeSubDomains; preload' always;
     
-    ssl_certificate /srv/certs/site.dev/fullchain.pem;
-    ssl_certificate_key /srv/certs/site.dev/privkey.pem;
-    ssl_session_timeout 5m;
+    ssl_certificate       /etc/nginx/__SITE_NAME__/fullchain.pem;
+    ssl_certificate_key   /etc/nginx/certs/__SITE_NAME__/privkey.pem;
+    ssl_session_timeout   5m;
 
     charset utf-8;
     index index.php index.html;
