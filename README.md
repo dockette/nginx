@@ -1,9 +1,15 @@
 # Nginx
 
+Nginx with SSL / HSTS and HTTP2 module. 
+
+-----
+
 [![Docker Stars](https://img.shields.io/docker/stars/dockette/nginx.svg?style=flat)](https://hub.docker.com/r/dockette/nginx/)
 [![Docker Pulls](https://img.shields.io/docker/pulls/dockette/nginx.svg?style=flat)](https://hub.docker.com/r/dockette/nginx/)
 
-Nginx with SSL / HSTS and HTTP2 module. 
+## Discussion / Help
+
+[![Join the chat](https://img.shields.io/gitter/room/dockette/dockette.svg?style=flat-square)](https://gitter.im/dockette/dockette?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
 ## Default
 
@@ -68,8 +74,6 @@ And the [example](https://github.com/dockette/nginx/blob/master/sites.d/example)
 ### Sites config
 
 For little fragments shared accross sites you can use folder `/etc/nginx/site.conf.d`.
-
-
 
 ### User config
 
