@@ -1,4 +1,4 @@
-FROM dockette/debian:jessie
+FROM dockette/jessie
 
 MAINTAINER Milan Sulc <sulcmil@gmail.com>
 
@@ -27,7 +27,7 @@ ADD ./nginx.conf    /etc/nginx/nginx.conf
 ADD ./mime.types    /etc/nginx/mime.types
 ADD ./conf.d        /etc/nginx/conf.d
 ADD ./site.conf.d   /etc/nginx/site.conf.d
-ADD ./site.d        /etc/nginx/sites.d
+ADD ./sites.d       /etc/nginx/sites.d
 
 # Default cypher (please rewrite it by your own)
 ADD ./dhparam2048.pem /etc/nginx/dhparam2048.pem

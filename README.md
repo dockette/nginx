@@ -69,7 +69,7 @@ There are 2 sites predefined:
 
 The [default](https://github.com/dockette/nginx/blob/master/sites.d/default) returns http code 444 for every requests, it's marked as `default_server`.
 
-And the [example](https://github.com/dockette/nginx/blob/master/sites.d/example) site.
+And the [example](https://github.com/dockette/nginx/blob/master/.examples) site.
 
 ### Sites config
 
@@ -91,4 +91,4 @@ This approach is for developing, for your stagging / production, please generate
 
 You should have A+ on [SSL Server Test](https://www.ssllabs.com/ssltest/).
 
-![](https://raw.githubusercontent.com/dockette/nginx/master/_docs/ssllabs.png "SSL Server Test")
+![](https://raw.githubusercontent.com/dockette/nginx/master/.docs/ssllabs.png "SSL Server Test")
