@@ -1,15 +1,14 @@
-FROM dockette/jessie
+FROM dockette/stretch
 
 MAINTAINER Milan Sulc <sulcmil@gmail.com>
 
 RUN apt-get update && apt-get dist-upgrade -y && \
+    apt-get install --no-install-recommends --no-install-suggests -y gnupg1 apt-transport-https ca-certificates && \
     # APP PART
-    apt-key adv --keyserver hkp://pgp.mit.edu:80 --recv-keys 573BFD6B3D8FBC641079A6ABABF5BD827BD9BF62 && \
-    echo "deb http://nginx.org/packages/mainline/debian/ jessie nginx" >> /etc/apt/sources.list && \
+    apt-key adv --keyserver ha.pool.sks-keyservers.net --recv-keys 573BFD6B3D8FBC641079A6ABABF5BD827BD9BF62 && \
+    echo "deb http://nginx.org/packages/mainline/debian/ stretch nginx" >> /etc/apt/sources.list && \
     apt-get update && \
     apt-get install --no-install-recommends --no-install-suggests -y \
-                                            ca-certificates \
-                                            nginx \
                                             nginx-module-xslt \
                                             nginx-module-geoip \
                                             nginx-module-image-filter \
