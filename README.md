@@ -1,15 +1,17 @@
-# Nginx
+<h1 align=center>Dockette / Nginx</h1>
 
-Nginx with SSL / HSTS and HTTP2 module. 
+<p align=center>
+   <a href="https://github.com/dockette/nginx/actions"><img src="https://github.com/dockette/nginx/actions/workflows/docker.yml/badge.svg" alt="GitHub Actions"></a>
+   <a href="https://hub.docker.com/r/dockette/nginx"><img src="https://img.shields.io/docker/pulls/dockette/nginx.svg" alt="Docker Hub pulls"></a>
+   <a href="https://github.com/sponsors/f3l1x"><img src="https://img.shields.io/badge/sponsor-GitHub%20Sponsors-ea4aaa" alt="GitHub Sponsors"></a>
+   <a href="https://github.com/orgs/dockette/discussions"><img src="https://img.shields.io/badge/support-discussions-6f42c1" alt="Support/Discussions"></a>
+</p>
+
+<p align=center>
+   Nginx with SSL / HSTS and HTTP2 module.
+</p>
 
 -----
-
-[![Docker Stars](https://img.shields.io/docker/stars/dockette/nginx.svg?style=flat)](https://hub.docker.com/r/dockette/nginx/)
-[![Docker Pulls](https://img.shields.io/docker/pulls/dockette/nginx.svg?style=flat)](https://hub.docker.com/r/dockette/nginx/)
-
-## Discussion / Help
-
-[![Join the chat](https://img.shields.io/gitter/room/dockette/dockette.svg?style=flat-square)](https://gitter.im/dockette/dockette?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
 ## Default
 
@@ -19,8 +21,8 @@ Without any volumes Nginx listen IPv4 and IPv6 on both ports 80/443 and serve 44
 
 ```sh
 docker run \
-    -p 80:80 \ 
-    -p 443:433 \
+    -p 80:80 \
+    -p 443:443 \
     -v /path/to/site:/etc/nginx/sites.d/site \
     --name nginx \
     dockette/nginx:latest
