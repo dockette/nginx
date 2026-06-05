@@ -15,6 +15,7 @@ RUN apt-get update && apt-get dist-upgrade -y && \
                                             nginx-module-njs \
                                             gettext-base && \
     rm /etc/nginx/conf.d/default.conf && \
+    mkdir -p /etc/nginx/user.conf.d && \
     ln -sf /dev/stdout /var/log/nginx/access.log && \
     ln -sf /dev/stderr /var/log/nginx/error.log && \
     # CLEANING PART

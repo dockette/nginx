@@ -15,7 +15,7 @@
 
 ## Default
 
-Without any volumes Nginx listen IPv4 and IPv6 on both ports 80/443 and serve 444 No content.
+Without any custom site configuration, Nginx starts with no default virtual host. Mount a server configuration into `/etc/nginx/sites.d` to listen on ports 80/443.
 
 ## Usage
 
@@ -67,11 +67,7 @@ Take a look at [nginx.conf](https://github.com/dockette/nginx/blob/master/nginx.
 
 Sites are loaded from folder `/etc/nginx/sites.d`.
 
-There are 2 sites predefined:
-
-The [default](https://github.com/dockette/nginx/blob/master/sites.d/default) returns http code 444 for every requests, it's marked as `default_server`.
-
-And the [example](https://github.com/dockette/nginx/blob/master/.examples) site.
+The image ships an empty `/etc/nginx/sites.d` folder. Example site configurations are available in [.examples/sites.d](https://github.com/dockette/nginx/tree/master/.examples/sites.d), including a 444 `default_server`, but they are not installed automatically.
 
 ### Sites config
 

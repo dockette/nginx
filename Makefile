@@ -9,7 +9,7 @@ build:
 .PHONY: test
 test:
 	docker run --rm ${DOCKER_IMAGE}:${DOCKER_TAG} nginx -v
-	docker run --rm ${DOCKER_IMAGE}:${DOCKER_TAG} sh -lc 'mkdir -p /etc/nginx/user.conf.d && nginx -t'
+	docker run --rm ${DOCKER_IMAGE}:${DOCKER_TAG} nginx -t
 
 .PHONY: run
 run:
