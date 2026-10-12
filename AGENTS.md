@@ -8,7 +8,7 @@ Dockette Nginx builds `dockette/nginx`, an Nginx image with SSL, HSTS, HTTP/2-or
 
 - Default image: `dockette/nginx:latest`.
 - Build context: repository root `.` with `Dockerfile`, `nginx.conf`, `mime.types`, `conf.d/`, `site.conf.d/`, `sites.d/`, and DH parameter files.
-- Base image: `dockette/stretch`.
+- Base image: `debian:trixie-slim`.
 - GitHub Actions tests `linux/amd64`, then publishes `linux/amd64,linux/arm64` through the shared Dockette Docker workflow on `master` and the weekly schedule.
 
 ## Commands
