@@ -1,14 +1,15 @@
-FROM dockette/stretch
+FROM debian:trixie-slim
 
-MAINTAINER Milan Sulc <sulcmil@gmail.com>
+LABEL maintainer="Milan Sulc <sulcmil@gmail.com>"
 
 RUN apt-get update && apt-get dist-upgrade -y && \
-    apt-get install --no-install-recommends --no-install-suggests -y gnupg1 apt-transport-https ca-certificates && \
+    apt-get install --no-install-recommends --no-install-suggests -y curl gnupg ca-certificates && \
     # APP PART
-    apt-key adv --keyserver ha.pool.sks-keyservers.net --recv-keys 573BFD6B3D8FBC641079A6ABABF5BD827BD9BF62 && \
-    echo "deb http://nginx.org/packages/mainline/debian/ stretch nginx" >> /etc/apt/sources.list && \
+    curl -fsSL https://nginx.org/keys/nginx_signing.key | gpg --dearmor -o /usr/share/keyrings/nginx-archive-keyring.gpg && \
+    echo "deb [signed-by=/usr/share/keyrings/nginx-archive-keyring.gpg] http://nginx.org/packages/mainline/debian/ trixie nginx" > /etc/apt/sources.list.d/nginx.list && \
     apt-get update && \
     apt-get install --no-install-recommends --no-install-suggests -y \
+                                            nginx \
                                             nginx-module-xslt \
                                             nginx-module-geoip \
                                             nginx-module-image-filter \
