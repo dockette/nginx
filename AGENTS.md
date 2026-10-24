@@ -29,4 +29,5 @@ Dockette Nginx builds `dockette/nginx`, an Nginx image with SSL, HSTS, HTTP/2-or
 - Prefer `DOCKER_*` names for Docker-related Makefile variables.
 - Place `.PHONY: <target>` directly above each Makefile target.
 - Keep README badges and maintenance sections consistent with other Dockette image repos.
+- `VERSION` is the release date; `make release` bumps it. CI pushes `latest` also as `<VERSION>` and creates the GitHub release.
 - Do not introduce unrelated formatting or structural changes.

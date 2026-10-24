@@ -85,6 +85,11 @@ By default nginx uses 2048 bits dhparam cypher. There is also 4096 bits pregener
 
 This approach is for developing, for your stagging / production, please generate your own dhparam.
 
+## Versions
+
+The release version is the date in [`VERSION`](VERSION). CI pushes `latest` also as `dockette/nginx:<VERSION>`.
+To release, run `make release`, commit and push to `master`.
+
 ## Tip
 
 You should have A+ on [SSL Server Test](https://www.ssllabs.com/ssltest/).
