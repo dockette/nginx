@@ -13,83 +13,72 @@
 
 -----
 
-## Default
+Nginx with SSL, HSTS and HTTP/2 on `debian:trixie-slim`, installed from the nginx.org mainline packages. It starts with
+no default virtual host. Mount a server configuration into `/etc/nginx/sites.d` to listen on ports 80 and 443.
 
-Without any custom site configuration, Nginx starts with no default virtual host. Mount a server configuration into `/etc/nginx/sites.d` to listen on ports 80/443.
+## Features
 
-## Usage
-
-```sh
-docker run \
-    -p 80:80 \
-    -p 443:443 \
-    -v /path/to/site:/etc/nginx/sites.d/site \
-    --name nginx \
-    dockette/nginx:latest
-```
-
-## Configuration
-
-There are 2 main files:
-
-- [nginx.conf](https://github.com/dockette/nginx/blob/master/nginx.conf)
-- [mime.types](https://github.com/dockette/nginx/blob/master/mime.types)
-
-Diffie-Hellman files:
-
-- [dhparam2048.pem](https://github.com/dockette/nginx/blob/master/dhparam2048.pem)
-- [dhparam4096](https://github.com/dockette/nginx/blob/master/dhparam4096.pem)
-
-Modules:
-
-- nginx-module-xslt
-- nginx-module-geoip
-- nginx-module-image-filter
-- nginx-module-njs
-
-### Http config
-
-There are many files in `/etc/nginx/conf.d`.
-
-- [basic.conf](https://github.com/dockette/nginx/blob/master/conf.d/basic.conf)
-- [charset.conf](https://github.com/dockette/nginx/blob/master/conf.d/charset.conf)
-- [gzip.conf](https://github.com/dockette/nginx/blob/master/conf.d/gzip.conf)
-- [logging.conf](https://github.com/dockette/nginx/blob/master/conf.d/logging.conf)
-- [ssl.conf](https://github.com/dockette/nginx/blob/master/conf.d/ssl.conf)
-
-These files are loaded manully in the main `http` section. You can extend only part of these files which you need.
-
-Please do not place your custom configurations to this folder. There is a folder `/etc/nginx/user.conf.d` for this reason.
-
-Take a look at [nginx.conf](https://github.com/dockette/nginx/blob/master/nginx.conf).
-
-### Sites
-
-Sites are loaded from folder `/etc/nginx/sites.d`.
-
-The image ships an empty `/etc/nginx/sites.d` folder. Example site configurations are available in [.examples/sites.d](https://github.com/dockette/nginx/tree/master/.examples/sites.d), including a 444 `default_server`, but they are not installed automatically.
-
-### Sites config
-
-For little fragments shared accross sites you can use folder `/etc/nginx/site.conf.d`.
-
-### User config
-
-Your custom global http section configuration, `/etc/nginx/user.conf.d`. These files are loaded automatic from `http` section.
-
-Take a look at [nginx.conf](https://github.com/dockette/nginx/blob/master/nginx.conf).
-
-### SSL
-
-By default nginx uses 2048 bits dhparam cypher. There is also 4096 bits pregenerated file. 
-
-This approach is for developing, for your stagging / production, please generate your own dhparam.
-
-## Tip
+- Nginx mainline with the `xslt`, `geoip`, `image-filter` and `njs` modules
+- Ports `80` and `443`
+- SSL, gzip, charset and logging defaults in `/etc/nginx/conf.d`
+- Pregenerated Diffie-Hellman files (`dhparam2048.pem` and `dhparam4096.pem`)
+- Empty `/etc/nginx/sites.d`, example sites in [.examples/sites.d](https://github.com/dockette/nginx/tree/master/.examples/sites.d)
+  (including a 444 `default_server`, not installed automatically)
 
 You should have A+ on [SSL Server Test](https://www.ssllabs.com/ssltest/).
 
 ![](https://raw.githubusercontent.com/dockette/nginx/master/.docs/ssllabs.png "SSL Server Test")
+
+## Usage
+
+```sh
+docker run -p 80:80 -p 443:443 -v /path/to/site:/etc/nginx/sites.d/site --name nginx dockette/nginx:latest
+```
+
+## Configuration
+
+Main files:
+
+- [nginx.conf](https://github.com/dockette/nginx/blob/master/nginx.conf)
+- [mime.types](https://github.com/dockette/nginx/blob/master/mime.types)
+- [dhparam2048.pem](https://github.com/dockette/nginx/blob/master/dhparam2048.pem)
+- [dhparam4096.pem](https://github.com/dockette/nginx/blob/master/dhparam4096.pem)
+
+Folders:
+
+- `/etc/nginx/conf.d`: the http config, loaded manually in the main `http` section of
+  [nginx.conf](https://github.com/dockette/nginx/blob/master/nginx.conf). You can extend only the parts you need. Do not
+  put your own configuration here.
+  - [basic.conf](https://github.com/dockette/nginx/blob/master/conf.d/basic.conf)
+  - [charset.conf](https://github.com/dockette/nginx/blob/master/conf.d/charset.conf)
+  - [gzip.conf](https://github.com/dockette/nginx/blob/master/conf.d/gzip.conf)
+  - [logging.conf](https://github.com/dockette/nginx/blob/master/conf.d/logging.conf)
+  - [ssl.conf](https://github.com/dockette/nginx/blob/master/conf.d/ssl.conf)
+- `/etc/nginx/sites.d`: sites, one file per site.
+- `/etc/nginx/site.conf.d`: small fragments shared across sites.
+- `/etc/nginx/user.conf.d`: your own global `http` configuration, loaded automatically.
+
+By default Nginx uses the 2048 bit dhparam file. The 4096 bit file is also there. Both are for development: for staging
+and production, generate your own.
+
+## Versions
+
+| Version | Release |
+|---------|---------|
+| `dockette/nginx:YYYY.MM.DD` | release `YYYY.MM.DD` |
+| `dockette/nginx:latest` | latest build of `master` |
+
+Releases are listed on [GitHub](https://github.com/dockette/nginx/releases).
+
+## Development
+
+```sh
+make build     # build linux/amd64 and linux/arm64
+make test      # run nginx -v and nginx -t
+make run       # run the image on ports 80 and 443
+make version   # print VERSION
+make release   # set today's date in VERSION
+```
 
 ## Maintenance
 
