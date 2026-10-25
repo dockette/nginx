@@ -2,6 +2,8 @@ DOCKER_IMAGE=dockette/nginx
 DOCKER_TAG?=latest
 DOCKER_PLATFORMS?=linux/amd64,linux/arm64
 
+include VERSION
+
 .PHONY: build
 build:
 	docker buildx build --platform ${DOCKER_PLATFORMS} -t ${DOCKER_IMAGE}:${DOCKER_TAG} .
@@ -14,3 +16,12 @@ test:
 .PHONY: run
 run:
 	docker run --rm -it -p 80:80 -p 443:443 ${DOCKER_IMAGE}:${DOCKER_TAG}
+
+.PHONY: version
+version:
+	@echo ${VERSION}
+
+.PHONY: release
+release:
+	@sed -i.bak "s/^VERSION=.*/VERSION=$$(date -u +%Y.%m.%d)/" VERSION && rm VERSION.bak
+	@cat VERSION
