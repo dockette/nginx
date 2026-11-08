@@ -9,7 +9,7 @@ Dockette Nginx builds `dockette/nginx`, an Nginx image with SSL, HSTS, HTTP/2-or
 - Default image: `dockette/nginx:latest`.
 - Build context: repository root `.` with `Dockerfile`, `nginx.conf`, `mime.types`, `conf.d/`, `site.conf.d/`, `sites.d/`, and DH parameter files.
 - Base image: `debian:trixie-slim`.
-- GitHub Actions tests `linux/amd64`, then publishes `linux/amd64,linux/arm64` through the shared Dockette Docker workflow on `master` and the weekly schedule.
+- GitHub Actions tests `linux/amd64`, then publishes `linux/amd64,linux/arm64` from one build job on `master` and the weekly schedule.
 
 ## Commands
 
@@ -29,4 +29,5 @@ Dockette Nginx builds `dockette/nginx`, an Nginx image with SSL, HSTS, HTTP/2-or
 - Prefer `DOCKER_*` names for Docker-related Makefile variables.
 - Place `.PHONY: <target>` directly above each Makefile target.
 - Keep README badges and maintenance sections consistent with other Dockette image repos.
+- `VERSION` is a key=value file with `VERSION` (the release date; `make release` sets it) and `NGINX_VERSION` (the pinned nginx version, passed as a build arg and used for the apt packages). CI pushes `latest`, `<VERSION>`, `<NGINX_VERSION>` and `<NGINX_VERSION>-<VERSION>`, and creates the GitHub release.
 - Do not introduce unrelated formatting or structural changes.

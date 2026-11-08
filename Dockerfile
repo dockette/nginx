@@ -1,5 +1,7 @@
 FROM debian:trixie-slim
 
+ARG NGINX_VERSION=1.31.8
+
 LABEL maintainer="Milan Sulc <sulcmil@gmail.com>"
 
 RUN apt-get update && apt-get dist-upgrade -y && \
@@ -9,11 +11,11 @@ RUN apt-get update && apt-get dist-upgrade -y && \
     echo "deb [signed-by=/usr/share/keyrings/nginx-archive-keyring.gpg] http://nginx.org/packages/mainline/debian/ trixie nginx" > /etc/apt/sources.list.d/nginx.list && \
     apt-get update && \
     apt-get install --no-install-recommends --no-install-suggests -y \
-                                            nginx \
-                                            nginx-module-xslt \
-                                            nginx-module-geoip \
-                                            nginx-module-image-filter \
-                                            nginx-module-njs \
+                                            nginx=${NGINX_VERSION}-1~trixie \
+                                            nginx-module-xslt=${NGINX_VERSION}-1~trixie \
+                                            nginx-module-geoip=${NGINX_VERSION}-1~trixie \
+                                            nginx-module-image-filter=${NGINX_VERSION}-1~trixie \
+                                            nginx-module-njs=${NGINX_VERSION}+* \
                                             gettext-base && \
     rm /etc/nginx/conf.d/default.conf && \
     mkdir -p /etc/nginx/user.conf.d && \
